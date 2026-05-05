@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bushra ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    text-align:center;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+    overflow-x:hidden;
+}
+
+.page{
+    padding:20px;
+}
+
+input,button{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin:10px;
+}
+
+button{
+    cursor:pointer;
+}
+
+#mainPage{
+    display:none;
+}
+
+.gallery{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+.gallery img{
+    width:140px;
+    height:140px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+/* Hearts */
+.heart{
+    position:fixed;
+    color:red;
+    font-size:25px;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loginPage" class="page">
+
+    <h1>Bushra ❤️</h1>
+    <h3>Enter Secret Password</h3>
+
+    <input type="password" id="password">
+    <br>
+
+    <button onclick="login()">Open</button>
+
+</div>
+
+
+<div id="mainPage" class="page">
+
+    <h1>Welcome Bushra ❤️</h1>
+
+    <h2>
+        You are the most beautiful part of my life 💖
+    </h2>
+
+    <button onclick="toggleMusic()">
+        Music On / Off
+    </button>
+
+    <br>
+
+    <input type="file" id="imageInput" multiple>
+
+    <div class="gallery" id="gallery"></div>
+
+</div>
+
+
+<audio id="music" loop>
+    <source src="your-music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+function login(){
+
+    let pass=document.getElementById("password").value;
+
+    if(pass=="bushra123"){
+
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("mainPage").style.display="block";
+
+        createHearts();
+
+    }else{
+        alert("Wrong Password");
+    }
+}
+
+
+const music=document.getElementById("music");
+
+function toggleMusic(){
+
+    if(music.paused){
+        music.play();
+    }else{
+        music.pause();
+    }
+}
+
+
+const input=document.getElementById("imageInput");
+const gallery=document.getElementById("gallery");
+
+
+input.addEventListener("change",function(){
+
+    for(let file of this.files){
+
+        let reader=new FileReader();
+
+        reader.onload=function(e){
+
+            let img=document.createElement("img");
+
+            img.src=e.target.result;
+
+            gallery.appendChild(img);
+
+        }
+
+        reader.readAsDataURL(file);
+
+    }
+
+});
+
+
+function createHearts(){
+
+    setInterval(()=>{
+
+        let heart=document.createElement("div");
+
+        heart.innerHTML="❤️";
+        heart.className="heart";
+
+        heart.style.left=Math.random()*100+"%";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },5000);
+
+    },500);
+
+}
+
+</script>
+
+</body>
+</html>
